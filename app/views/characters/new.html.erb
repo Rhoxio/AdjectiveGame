@@ -1,0 +1,13 @@
+<div>
+  <div>
+    <%= form_for(Character.new) do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :player_class %>
+      <%= f.text_field :player_class %>
+
+      <%= f.submit "Create Character", class: "" %>
+    <% end %>
+  </div>
+</div>
