@@ -7,7 +7,10 @@
       <%= f.label :player_class %>
       <%= f.text_field :player_class %>
 
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
       <%= f.submit "Create Character", class: "" %>
+
     <% end %>
   </div>
 </div>
