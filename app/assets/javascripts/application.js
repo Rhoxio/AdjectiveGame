@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$.getJSON('/api/test', function(data){
+	console.log(data)
+})
