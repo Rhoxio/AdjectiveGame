@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	# has_many :characters
+	has_many :characters
 	# has_many :bosses
 	has_secure_password
 

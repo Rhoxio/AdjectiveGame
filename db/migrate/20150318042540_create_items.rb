@@ -6,6 +6,8 @@ class CreateItems < ActiveRecord::Migration
       t.integer :weight
       t.text :description
 
+      t.string :character_id
+
       t.timestamps null: false
     end
   end
