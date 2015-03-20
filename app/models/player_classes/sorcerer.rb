@@ -1,4 +1,4 @@
-class Magus < Character
+class Sorcerer < Character
 
 	def stat_mod
 		self.intellect + self.level
@@ -11,6 +11,6 @@ class Magus < Character
 	def firestorm
 		self.intellect + self.weapon.attack
 		# Apply 'Burning' debuff. Duration may be extended.
-	def 
+	end
 
 end

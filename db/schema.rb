@@ -19,9 +19,26 @@ ActiveRecord::Schema.define(version: 20150318042540) do
   create_table "characters", force: :cascade do |t|
     t.string   "name"
     t.string   "player_class"
+    t.string   "player_race"
+    t.integer  "level"
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "hitpoints"
+    t.integer  "max_hitpoints"
+    t.integer  "constitution"
+    t.integer  "strength"
+    t.integer  "agility"
+    t.integer  "intelligence"
+    t.integer  "faith"
+    t.integer  "toughness"
+    t.integer  "evasion"
+    t.integer  "acuity"
+    t.integer  "piety"
+    t.integer  "initiative"
+    t.integer  "hit_chance"
+    t.string   "debuffs",                    array: true
+    t.string   "buffs",                      array: true
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "items", force: :cascade do |t|
