@@ -51,9 +51,32 @@ class Character < ActiveRecord::Base
 			self.skill_points += 3
 			self.save!
 		else
-			false
+			return false
 		end
+	end
 
+	def equip_weapon(weapon)
+		# Parse the JSON...
+		self.weapon = Weapon.find(weapon.id)
+	end
+
+	def assign_skillpoint(attribute, amount)
+		case attribute
+		when 'strength'
+			self.strength += amount
+			self.save!
+		when 'agility'
+			self.agility += amount
+			self.save!
+		when 'intelligence'
+			self.intelligence += amount
+			self.save!
+		when 'faith'
+			self.faith += amount
+			self.save!
+		else
+			return false
+		end
 	end
 
 end
