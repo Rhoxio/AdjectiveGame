@@ -1,5 +1,9 @@
 class Mender < Character
 
+	def die_roll(maximum)
+		rand(1..maximum)
+	end
+
 	def stat_mod
 		self.faith + self.level
 	end

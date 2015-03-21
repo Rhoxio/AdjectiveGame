@@ -1,5 +1,6 @@
 class CharactersController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
+	helper: characters
 	
 	def show
 		@character = Character.find(params[:id])

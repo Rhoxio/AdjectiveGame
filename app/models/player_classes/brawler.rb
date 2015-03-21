@@ -1,5 +1,9 @@
 class Brawler < Character
 
+	def die_roll(maximum)
+		rand(1..maximum)
+	end
+
 	def stat_mod
 		self.strength + self.level
 	end

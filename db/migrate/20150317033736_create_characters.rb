@@ -6,6 +6,9 @@ class CreateCharacters < ActiveRecord::Migration
       t.string :player_race
       t.integer :level
 
+      t.integer :experience
+      t.integer :skill_points
+
       t.integer :user_id
 
       t.integer :hitpoints

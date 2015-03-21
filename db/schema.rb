@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318042540) do
+ActiveRecord::Schema.define(version: 20150320221601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20150318042540) do
     t.string   "player_class"
     t.string   "player_race"
     t.integer  "level"
+    t.integer  "experience"
+    t.integer  "skill_points"
     t.integer  "user_id"
     t.integer  "hitpoints"
     t.integer  "max_hitpoints"
@@ -70,6 +72,22 @@ ActiveRecord::Schema.define(version: 20150318042540) do
     t.integer  "bosses",                       array: true
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "weapons", force: :cascade do |t|
+    t.string   "name"
+    t.string   "weapon_type"
+    t.integer  "weight"
+    t.integer  "character_id"
+    t.integer  "attack"
+    t.integer  "mending"
+    t.integer  "power"
+    t.integer  "defense"
+    t.integer  "avoidance"
+    t.integer  "resistance"
+    t.text     "description"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
 end
