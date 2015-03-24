@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150320221601) do
     t.integer  "level"
     t.integer  "experience"
     t.integer  "skill_points"
+    t.integer  "gold"
     t.integer  "user_id"
     t.integer  "hitpoints"
     t.integer  "max_hitpoints"

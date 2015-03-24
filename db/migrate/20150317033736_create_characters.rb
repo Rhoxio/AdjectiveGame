@@ -8,6 +8,8 @@ class CreateCharacters < ActiveRecord::Migration
 
       t.integer :experience
       t.integer :skill_points
+      
+      t.integer :gold
 
       t.integer :user_id
 

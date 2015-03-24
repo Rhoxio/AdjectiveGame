@@ -9,7 +9,9 @@ class Mender < Character
 	end
 
 	def heal_friend(target)
-		self.faith + self.weapon.mending
+		target.heal(self.faith + self.weapon.mending)
+		target.health_overflow_check
+		target.save!
 	end
 
 	def exorcism
