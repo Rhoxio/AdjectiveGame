@@ -2,6 +2,7 @@ class Character < ActiveRecord::Base
 
 	belongs_to :user
 	has_many :items
+	has_many :attacks
 	has_one :weapon
 
 	def attack

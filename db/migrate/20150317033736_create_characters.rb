@@ -31,6 +31,10 @@ class CreateCharacters < ActiveRecord::Migration
       t.integer :acuity
       t.integer :piety
 
+      # Percentage based on agility, modifier based on highest stat other than Agi.
+      t.integer :critical_chance
+      t.integer :critical_modifier
+
       # Speed. Will control turn-based mechanics.
       t.integer :initiative
 
