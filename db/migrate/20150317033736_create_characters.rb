@@ -2,17 +2,17 @@ class CreateCharacters < ActiveRecord::Migration
   def change
     create_table :characters do |t|
       t.string :name
-      t.string :player_class
       t.string :player_race
       t.integer :level
-
-      t.integer :experience
-      t.integer :skill_points
-      
-      t.integer :gold
-
       t.integer :user_id
 
+      t.integer :gold
+
+      t.integer :experience
+
+      t.integer :max_skill_points
+      t.integer :skill_points
+      
       t.integer :hitpoints
       t.integer :max_hitpoints
 

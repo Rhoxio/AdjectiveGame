@@ -5,14 +5,6 @@ class Character < ActiveRecord::Base
 	has_many :attacks
 	has_one :weapon
 
-	def attack
-		if self.weapon == true
-			self.strength + self.weapon.attack
-		else
-			self.strength
-		end
-	end
-
 	def defend(assailant, damage)
 		if damage > self.toughness
 			total_damage = damage - self.toughness
