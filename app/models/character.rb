@@ -5,6 +5,16 @@ class Character < ActiveRecord::Base
 	has_many :attacks
 	has_one :weapon
 
+	def attack
+		# Needs to be rewritten, as I don't use this model for damage any more. 
+		if self.weapon == true
+			self.strength + self.weapon.attack
+		else
+			self.strength
+		end
+	end
+
+# Defensive Abilities
 	def defend(assailant, damage)
 		if damage > self.toughness
 			total_damage = damage - self.toughness
@@ -50,6 +60,13 @@ class Character < ActiveRecord::Base
 		end
 	end
 
+# Combat Utility
+
+	def take_damage(hit)
+		self.hitpoints -= hit
+		self.save!
+	end
+
 	def full_mitigation_check(chance)
 		roll = rand(1..100)
 		if roll > chance
@@ -59,17 +76,7 @@ class Character < ActiveRecord::Base
 		end
 	end
 
-	def heal
-		if self.weapon == true
-			self.hitpoints += (self.faith + self.weapon.mending)
-			health_overflow_check
-			self.save!
-		else
-			self.hitpoints += self.faith
-			health_overflow_check
-			self.save!
-		end
-	end
+# Status Updates / Checks
 
 	def alive?
 		if self.hitpoints > 0
@@ -87,6 +94,20 @@ class Character < ActiveRecord::Base
 			return false
 		end
 	end
+
+	def heal
+		if self.weapon == true
+			self.hitpoints += (self.faith + self.weapon.mending)
+			health_overflow_check
+			self.save!
+		else
+			self.hitpoints += self.faith
+			health_overflow_check
+			self.save!
+		end
+	end
+
+# Utility Calculation Methods
 
 	def level_calculation
 		next_level = self.level + 1
@@ -111,6 +132,8 @@ class Character < ActiveRecord::Base
 		end
 	end
 
+# Equipment Logic
+
 	def equip_weapon(weapon)
 		# Parse the JSON before this...
 		self.weapon = Weapon.find(weapon.id)
@@ -132,6 +155,8 @@ class Character < ActiveRecord::Base
 		self.save!
 	end
 
+# Currency Logic
+
 	def acquire_gold(amount)
 		self.gold += amount
 		self.save!
@@ -144,11 +169,6 @@ class Character < ActiveRecord::Base
 		else
 			false
 		end
-	end
-
-	def take_damage(hit)
-		self.hitpoints -= hit
-		self.save!
 	end
 
 end

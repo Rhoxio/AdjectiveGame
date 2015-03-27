@@ -4,7 +4,6 @@ class CreateAttacks < ActiveRecord::Migration
       t.string :name
       t.integer :level_requirement
       t.integer :skill_point_cost
-      t.integer :stat_point_cost
 
       t.string :attack_type
 

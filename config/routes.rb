@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get 'success' => 'users#success'
 
+  get 'battle' => 'battle#battle'
+
   resources :users
   resources :characters
 

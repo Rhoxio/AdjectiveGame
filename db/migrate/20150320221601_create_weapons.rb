@@ -14,6 +14,8 @@ class CreateWeapons < ActiveRecord::Migration
       t.integer :avoidance
       t.integer :resistance
 
+      t.string :effect
+
       t.text :description
 
       t.timestamps null: false

@@ -14,6 +14,13 @@ Attack.create!(name: 'Exorcism', level_requirement: 1, skill_point_cost: 0, atta
 Attack.create!(name: 'Fireball', level_requirement: 1, skill_point_cost: 0, attack_type: 'elemental', damage: 3, critical_multiplier: 150, status_effect: 'none', status_application_chance: 0, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
 Attack.create!(name: 'Shank', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 1, critical_multiplier: 200, status_effect: 'none', status_application_chance: 0, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
 
+brawler = Character.find(1).weapon = Weapon.find(1)
+mender = Character.find(2).weapon = Weapon.find(2)
+rogue = Character.find(3).weapon = Weapon.find(3)
+sorcerer = Character.find(4).weapon = Weapon.find(4)
+
+brawler.weapon = Weapon.find(1)
+
 
 
 

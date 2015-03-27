@@ -1,0 +1,131 @@
+$ebony-clay: rgba(34, 49, 63, 1);
+$salem: rgba(30, 130, 76, 1);
+$monza: rgba(207, 0, 15, 1);
+$lemon: rgba(247, 202, 24, 1);
+$onyx: rgba(0, 0, 0, 0.1);
+
+html{
+	margin:0;
+	padding:0;
+}
+
+body{
+	margin:0;
+	padding:0;
+}
+div{
+	text-align: center;
+	color: white;
+}
+
+.user-menu{
+	position: absolute;
+	right: 0%;
+	top: 0%;
+
+	width: 400px;
+	height: 50px;
+
+	background-color: $ebony-clay;
+}
+
+.action-display{
+	position: absolute;
+
+	z-index: 1;
+
+	left: 50%;
+	bottom: 0%;
+	margin-left: -400px;
+
+	width: 800px;
+	height: 250px;
+
+	background-color: $ebony-clay;
+
+	.turn-display{
+		position: absolute;
+
+		bottom: 0%;
+
+		width: 100%;
+		height: 30px;
+
+		background-color: red;
+
+		.slot{
+			position: absolute;
+			width: 160px;
+			background-color: blue;
+			height: 100%;
+			text-align: center;
+		}
+		.one{
+			left: 0%;
+		}
+		.two{
+			background-color: $lemon;
+			left: 160px;
+		}
+		.three{
+			left: 320px;
+		}
+		.four{
+			background-color: $lemon;
+			left: 480px;
+		}
+		.five{
+			left: 640px;
+		}
+	}
+}
+
+.party-display{
+	position: absolute;
+	
+	left: 50%;
+	bottom: 0%;
+	width: 400px;
+	margin-left: -800px;
+
+	background-color: $salem;
+
+	height: 200px;
+}
+
+.boss-display{
+	position: absolute;
+	
+	right: 50%;
+	bottom: 0%;
+	width: 400px;
+	margin-right: -800px;
+
+	background-color: $monza;
+
+	height: 200px;
+}
+
+.animation-canvas{
+	position: absolute;
+
+	top: 100px;
+	left: 50%;
+	margin-left: -700px;
+
+	width: 1400px;
+	height: 500px;
+
+	background-color: $onyx;
+
+}
+
+
+
+
+
+
+
+
+
+
