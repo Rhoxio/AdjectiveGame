@@ -3,24 +3,37 @@ $salem: rgba(30, 130, 76, 1);
 $monza: rgba(207, 0, 15, 1);
 $lemon: rgba(247, 202, 24, 1);
 $onyx: rgba(0, 0, 0, 0.1);
+$med-red: rgba(246, 36, 89, 1);
 
-html{
-	margin:0;
-	padding:0;
+@mixin gradient-black($percentage){
+	background-color: ( 0, 0, 0, $percentage)
 }
 
-body{
-	margin:0;
-	padding:0;
-}
+
+// Ghetto Normalize
+
 div{
 	text-align: center;
 	color: white;
+
+	font-family: Helvetica;
 }
 
+// UI Elements
 .user-menu{
 	position: absolute;
 	right: 0%;
+	top: 0%;
+
+	width: 400px;
+	height: 50px;
+
+	background-color: $ebony-clay;
+}
+
+.area-info{
+	position: absolute;
+	left: 0%;
 	top: 0%;
 
 	width: 400px;
@@ -91,6 +104,39 @@ div{
 	background-color: $salem;
 
 	height: 200px;
+
+	.title{
+		padding-top: 2px;
+		background-color: rgba(0,0,0,0.5);
+	}
+
+	.player-info{
+		background-color: rgba(0,0,0,0.3);
+		// This affects the sub-classes if you do not include top, bottom, left or right.
+		position: absolute;
+
+		width: 380px;
+		height: 35px;
+
+		left: 10px;
+		border-bottom: 1px solid black;
+		border-right: 1px solid black;
+	}
+
+	.one{
+		top: 30px;
+		background-color: rgba(244, 208, 63, 0.5);
+	}
+	.two{
+		top: 70px;
+	}
+	.three{
+		top: 110px;
+		background-color: rgba(248, 148, 6, 0.5)
+	}
+	.four{
+		bottom: 15px;
+	}
 }
 
 .boss-display{
@@ -109,20 +155,97 @@ div{
 .animation-canvas{
 	position: absolute;
 
-	top: 100px;
+	top: 50px;
 	left: 50%;
 	margin-left: -700px;
 
 	width: 1400px;
-	height: 500px;
+	height: 550px;
 
 	background-color: $onyx;
 
 }
 
+.player-one{
+	position: absolute;
+	z-index: 1;
+	color: black;
 
+	left: 50%;
+	top: 100px;
 
+	margin-left:-550px;
 
+	width: 100px;
+	height: 100px;
+
+	background-color: green;
+}
+
+.player-two{
+	position: absolute;
+	z-index: 1;
+	color: black;
+
+	left: 50%;
+	top: 210px;
+
+	margin-left:-600px;
+
+	width: 100px;
+	height: 100px;
+
+	background-color: blue;
+}
+
+.player-three{
+	position: absolute;
+	z-index: 1;
+	color: black;
+
+	left: 50%;
+	top: 320px;
+
+	margin-left:-550px;
+
+	width: 100px;
+	height: 100px;
+
+	background-color: purple;
+}
+
+.player-four{
+	position: absolute;
+	z-index: 1;
+	color: black;
+
+	left: 50%;
+	top: 430px;
+
+	margin-left:-600px;
+
+	width: 100px;
+	height: 100px;
+
+	background-color: pink;
+}
+
+.boss{
+	position: absolute;
+	z-index: 1;
+
+	color: black;
+
+	right: 50%;
+	top: 200px;
+
+	margin-right: -600px;
+
+	width: 300px;
+	height: 225px;
+
+	background-color: gold;
+}
 
 
 
