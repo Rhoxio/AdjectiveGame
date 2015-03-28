@@ -5,12 +5,7 @@ $lemon: rgba(247, 202, 24, 1);
 $onyx: rgba(0, 0, 0, 0.1);
 $med-red: rgba(246, 36, 89, 1);
 
-@mixin gradient-black($percentage){
-	background-color: ( 0, 0, 0, $percentage)
-}
-
-
-// Ghetto Normalize
+// Normalized from basic_normalize.css
 
 div{
 	text-align: center;
@@ -19,15 +14,11 @@ div{
 	font-family: Helvetica;
 }
 
-button{
-	text-align:center;
-	position: absolute;
-	top: 10%;
-	z-index: 1;
-	width: 100;
-	height: 100;
-	background-color: yellow;
+body{
+	background-image: url(http://imgs.mi9.com/uploads/landscape/1941/fantasy-world_1680x1050_24467.jpg);
+	background-size: cover;
 }
+
 // UI Elements
 .user-menu{
 	position: absolute;
@@ -36,6 +27,9 @@ button{
 
 	width: 400px;
 	height: 50px;
+
+	border-bottom: inset #8D8D8D 4px;
+  border-left: inset #7F7F7F 4px;
 
 	background-color: $ebony-clay;
 }
@@ -48,6 +42,12 @@ button{
 	width: 400px;
 	height: 50px;
 
+	z-index: 1;
+
+	border-bottom: inset #8D8D8D 4px;
+  border-right: inset #7F7F7F 4px;
+
+
 	background-color: $ebony-clay;
 }
 
@@ -57,14 +57,143 @@ button{
 	text-align:center;
 	z-index: 1;
 
+	box-sizing:border-box;
+	    -moz-box-sizing:border-box;
+      -webkit-box-sizing:border-box;
+	border-top: inset #8D8D8D 10px;
+  border-right: inset #8D8D8D 10px;
+  border-left: inset #7F7F7F 10px;
+
 	left: 50%;
 	bottom: 0%;
-	margin-left: -400px;
+	margin-left: -25%;
 
-	width: 800px;
-	height: 250px;
+	width: 50%;
+	height:30%;
 
-	background-color: $ebony-clay;
+	background: url(http://www.yaharapridefarms.org/wp-content/uploads/2013/06/HD-wallpaper-Otife-Dark-black-plain-design-background.jpg);
+
+	.attack{
+		text-shadow: 2px 2px 5px black;
+		color: white;
+		background-color: #E62E00;
+		position:absolute;
+		top:15%;
+		left:10%;
+		width: 20%;
+		height:20%;
+		font-size: 150%;
+	}
+
+	.attack:hover { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+	}
+
+	.defend{
+		text-shadow: 2px 2px 5px black;
+		color: white;
+		background-color: #FFDB4D;
+		position:absolute;
+		top:15%;
+		right:10%;
+		width: 20%;
+		height:20%;
+		font-size: 150%;
+	}
+
+	.defend:hover { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+	}
+
+	.items{
+		text-shadow: 2px 2px 5px black;
+		color: white;
+		background-color: rgba(38, 166, 91, 1);
+		position:absolute;
+		bottom:25%;
+		left:10%;
+		width: 20%;
+		height:20%;
+		font-size: 150%;
+	}
+
+	.items:hover { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+	}
+
+	.info{
+		text-shadow: 2px 2px 5px black;
+		color: white;
+		background-color: rgba(30, 139, 195, 1);
+		position:absolute;
+		bottom:25%;
+		right:10%;
+		width: 20%;
+		height:20%;
+		font-size: 150%;
+	}
+
+	.info:hover { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+	}
+
+	.forfeit{
+		text-shadow: 2px 2px 5px black;
+		color: white;
+		background-color: rgba(191, 191, 191, 1);
+		position:absolute;
+		bottom:11%;
+		left:50%;
+		margin-left: -10%;
+		width: 20%;
+		height:10%;
+		font-size: 100%;
+
+		opacity: 0.5;
+	}
+
+	.forfeit:hover { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+    opacity: 1;
+	}
+
+	.special{
+		text-shadow: 2px 2px 5px black;
+		color: white;
+		position:absolute;
+		bottom:45%;
+		left:50%;
+		margin-left: -10%;
+		width: 20%;
+		height:20%;
+		font-size: 130%;
+
+		background: rgb(252,234,187); /* Old browsers */
+		background: -moz-linear-gradient(top, rgba(252,234,187,1) 0%, rgba(252,205,77,1) 50%, rgba(248,181,0,1) 51%, rgba(251,223,147,1) 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,234,187,1)), color-stop(50%,rgba(252,205,77,1)), color-stop(51%,rgba(248,181,0,1)), color-stop(100%,rgba(251,223,147,1))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* IE10+ */
+		background: linear-gradient(to bottom, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93',GradientType=0 ); /* IE6-9 */
+	}
+
+
+	.special:hover { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+	}
 
 	.turn-display{
 		position: absolute;
@@ -72,13 +201,13 @@ button{
 		bottom: 0%;
 
 		width: 100%;
-		height: 30px;
+		height: 10%;
 
 		background-color: red;
 
 		.slot{
 			position: absolute;
-			width: 160px;
+			width: 20%;
 			background-color: blue;
 			height: 100%;
 			text-align: center;
@@ -88,17 +217,17 @@ button{
 		}
 		.two{
 			background-color: $lemon;
-			left: 160px;
+			left: 20%;
 		}
 		.three{
-			left: 320px;
+			left: 40%;
 		}
 		.four{
 			background-color: $lemon;
-			left: 480px;
+			left: 60%;
 		}
 		.five{
-			left: 640px;
+			left: 80%;
 		}
 	}
 }
@@ -106,10 +235,9 @@ button{
 .party-display{
 	position: absolute;
 	
-	left: 50%;
+	left: 0%;
 	bottom: 0%;
-	width: 400px;
-	margin-left: -800px;
+	width: 25%;
 
 	background-color: $salem;
 
@@ -125,41 +253,109 @@ button{
 		// This affects the sub-classes if you do not include top, bottom, left or right.
 		position: absolute;
 
-		width: 380px;
-		height: 35px;
+		width: 90%;
+		height: 15%;
 
-		left: 10px;
+		left: 5%;
 		border-bottom: 1px solid black;
 		border-right: 1px solid black;
 	}
 
 	.one{
-		top: 30px;
+		top: 15%;
 		background-color: rgba(244, 208, 63, 0.5);
 	}
 	.two{
-		top: 70px;
+		top: 35%;
 	}
 	.three{
-		top: 110px;
+		top: 55%;
 		background-color: rgba(248, 148, 6, 0.5)
 	}
 	.four{
-		bottom: 15px;
+		top: 75%;
 	}
 }
 
 .boss-display{
 	position: absolute;
 	
-	right: 50%;
+	right: 0%;
 	bottom: 0%;
-	width: 400px;
-	margin-right: -800px;
+	width: 25%;
 
 	background-color: $monza;
 
 	height: 200px;
+
+	.title{
+		padding-top: 2px;
+		background-color: rgba(0,0,0,0.5);		
+	}
+
+	.boss-hp{
+		background-color: rgba(0,0,0,0.3);
+		position: absolute;
+
+		width: 90%;
+		height: 15%;
+
+		left: 5%;
+		top: 15%;
+		border-bottom: 1px solid black;
+		border-right: 1px solid black;
+
+		border-radius: 50px;
+
+		.hp-value{
+			position: absolute;
+			border-radius: 50px;
+
+			width: 50%;
+			height: 100%;
+
+			background-color: green;
+		}
+	}
+
+	.boss-info{
+		background-color: rgba(0,0,0,0.3);
+		position: absolute;
+
+		width: 90%;
+		height: 15%;
+
+		left: 5%;
+		top: 35%;
+		border-bottom: 1px solid black;
+		border-right: 1px solid black;	
+	}
+
+	.boss-attacks{
+		background-color: rgba(0,0,0,0.3);
+		position: absolute;
+
+		width: 90%;
+		height: 15%;
+
+		left: 5%;
+		top: 55%;
+		border-bottom: 1px solid black;
+		border-right: 1px solid black;	
+	}
+
+	.boss-status{
+		background-color: rgba(0,0,0,0.3);
+		position: absolute;
+
+		width: 90%;
+		height: 15%;
+
+		left: 5%;
+		top: 75%;
+		border-bottom: 1px solid black;
+		border-right: 1px solid black;	
+	}
 }
 
 .animation-canvas{
