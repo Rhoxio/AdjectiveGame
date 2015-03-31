@@ -6,13 +6,18 @@ Rails.application.routes.draw do
 
   get 'success' => 'users#success'
 
-  get 'battle' => 'battle#battle'
+  # get 'socket' => 'battle#socket'
 
   resources :users
   resources :characters
 
+  namespace :battle do
+    get '/start' => 'battle#open_socket'
+  end
+
   namespace :api do
     get '/test' => 'api#test'
+    get '/socket' => 'api#open_socket'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
