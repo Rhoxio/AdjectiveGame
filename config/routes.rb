@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    get '/test' => 'api#test' 
+    get '/test' => 'api#test'
     get '/socket' => 'api#open_socket'
   end
   # The priority is based upon order of creation: first created -> highest priority.

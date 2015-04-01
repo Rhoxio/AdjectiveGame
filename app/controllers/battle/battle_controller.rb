@@ -8,13 +8,18 @@ module Battle
 		# do not attempt to open the socket again and simply
 		# render the page. 
 
+		# It also seems that you need to actually write out
+		# code to keep a client list, then serve the data to
+		# each client.
+
 		def open_socket
 			if @@socket_state == :off
 				EventMachine.run{
-					EventMachine::WebSocket.start(:host => 'localhost', :port => 9001) do |ws|
+					EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 9001) do |ws|
 						p ws
 						ws.onopen{
 							puts 'Websocket connection open'
+							p @@socket_state
 							@@socket_state = :on
 							ws.send "Hello!"
 						}
@@ -25,15 +30,16 @@ module Battle
 						}
 
 						ws.onmessage{ |msg|
+							p @@socket_state
 							@user = User.find(1)
 							puts "Recieved message: #{msg}"
-							ws.send "Pong: #{@@socket_state}"
+							ws.send "Pong: #{msg}"
 						}
 
 						ws.onerror{|e| 
 							puts "Error: #{e.message}"
 						}
-						
+
 					end
 				}
 				render 'battle/battleui'
