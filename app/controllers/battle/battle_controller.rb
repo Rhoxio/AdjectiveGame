@@ -14,9 +14,8 @@ module Battle
 					EventMachine::WebSocket.start(:host => 'localhost', :port => 9001) do |ws|
 						p ws
 						ws.onopen{
-							puts 'Connection open'
+							puts 'Websocket connection open'
 							@@socket_state = :on
-							puts @@socket_state.to_s
 							ws.send "Hello!"
 						}
 
@@ -30,9 +29,11 @@ module Battle
 							puts "Recieved message: #{msg}"
 							ws.send "Pong: #{@@socket_state}"
 						}
+
 						ws.onerror{|e| 
 							puts "Error: #{e.message}"
 						}
+						
 					end
 				}
 				render 'battle/battleui'
