@@ -12,8 +12,6 @@ For example, the character Azorius has a stat spread of 5 strength, 2 agility, 1
 
 **The entire point of this system is to have me get out of the way and let others devise their own strategies.** It's a lot more fun that way. I am a HUGE fan of Dark Souls, and I feel like their model for character 'growth' is about as complete and enthralling as it gets. It is a little harder to get in to initially, but once you understand the mechanics past basic speculation, it opens metaphorical doors as far as creativity and balance go. 
 
-__I am not even considering balance issues at the moment. I am simply going to code the mechanics and worry about balance if I get enough people playing.__
-
 ## Combat
 
 Combat is the entire reason that this game exists in the first place. I am planning on modeling it after a fairly traditional JRPG with multiplayer functionality.
