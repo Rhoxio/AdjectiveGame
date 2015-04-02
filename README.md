@@ -18,7 +18,7 @@ Combat is the entire reason that this game exists in the first place. I am plann
 
 The game will play out as a turn-based RPG. Each entity will be sorted and put in to a turn order queue. Primarily because people hate waiting, all moves will be submitted at the same time and the turn order will play out in explicit order. Certain mechanics, like a Raison d'être, will interrupt the turn cycle. Certain moves like Swift Strike will always go first.
 
-I am also adding a true damage mechanic because, quite honestly, dumping all of your stats in to avoidance, going 100% hit-chance or heavy status-inducing moves, and neglecting to build health is simply unhealthy as far as combat design goes. My goal is to have a counter for everything even if it isn't perfectly apparent to newer players.
+I am also adding a true damage mechanic to some higher-level moves because, quite honestly, dumping all of your stats in to avoidance, going 100% hit-chance or heavy status-inducing moves, and neglecting to build health is simply unhealthy as far as combat design goes. My goal is to have a counter for everything even if it isn't perfectly apparent to newer players.
 
 ## Other Notes
 __I am toying with the idea of having a level cap. These design decisions are hardly meant to be considered this early in the project and are more suited for a blog.__
