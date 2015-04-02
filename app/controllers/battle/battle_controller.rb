@@ -27,21 +27,17 @@ module Battle
 		# do not attempt to open the socket again and simply
 		# render the page. 
 
-		# It also seems that you need to actually write out
-		# code to keep a client list, then serve the data to
-		# each client.
-
 		def open_socket
 			if @@socket_state == :off
 				EventMachine.run{
 					EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 9001) do |ws|
+
 						p ws
+
 						ws.onopen{
 							@@clients << ws
-							puts 'Websocket connection open'
-							p @@socket_state
+							puts "Websocket connection open with #{@@clients.length} clients."
 							@@socket_state = :on
-							ws.send "Hello!"
 						}
 
 						ws.onclose{
