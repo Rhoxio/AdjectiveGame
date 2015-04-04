@@ -5,58 +5,53 @@ class Character < ActiveRecord::Base
 	has_many :attacks
 	has_one :weapon
 
-	def attack
-		# Needs to be rewritten, as I don't use this model for damage any more. 
-		if self.weapon == true
-			self.strength + self.weapon.attack
-		else
-			self.strength
-		end
-	end
+	# def attack
+	# 	# Needs to be rewritten, as I don't use this model for damage any more. 
+	# 	if self.weapon == true
+	# 		self.strength + self.weapon.attack
+	# 	else
+	# 		self.strength
+	# 	end
+	# end
 
 # Defensive Abilities
-	def defend(assailant, damage)
-		if damage > self.toughness
+	def defend(assailant, attack)
+		if attack.damage > self.toughness && attack.attack_type == 'physical'
 			total_damage = damage - self.toughness
-			self.take_damage(total_damage)
+			total_damage
 		else
-			self.take_damage(0)
+			return 0
 		end
 	end
 
-	def dodge(assailant, damage)
+	def dodge(assailant, attack)
 		diff = assailant.level - self.level
 		total_dodge_chance = (self.evasion * 2) - diff
 		
-		if full_mitigation_check(total_dodge_chance) == true
-			self.take_damage(0)
+		if attack.attack_type == 'physical'
+		 full_mitigation_check(total_dodge_chance)
 		else
-			self.take_damage(damage)
-			self.save
+			return false
 		end
 	end
 
-	def nullify(assailant, damage)
+	def nullify(assailant, attack)
 		diff = assailant.level - self.level
 		total_null_chance = (self.acuity * 2) - diff
 
-		if full_mitigation_check(total_null_chance) == true
-			self.take_damage(0)
+		if attack.attack_type == 'elemental'
+			full_mitigation_check(total_null_chance)
 		else
-			self.take_damage(damage)
-			self.save
+			return false
 		end
-
 	end
 
-	def denounce(assailant, damage)
-		if damage > self.piety
+	def denounce(assailant, attack)
+		if attack.damage > self.toughness && attack.attack_type == 'divine'
 			total_damage = damage - self.piety
-			self.take_damage(total_damage)
-			self.save
+			total_damage
 		else
-			self.take_damage(0)
-			self.save
+			return 0
 		end
 	end
 

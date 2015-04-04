@@ -32,7 +32,7 @@ module Battle
 				EventMachine.run{
 					EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 9001) do |ws|
 
-						p ws
+						Combat::Attack.hit('one', 'two')
 
 						ws.onopen{
 							@@clients << ws

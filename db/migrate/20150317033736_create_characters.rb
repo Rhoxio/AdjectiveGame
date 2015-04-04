@@ -6,6 +6,8 @@ class CreateCharacters < ActiveRecord::Migration
       t.integer :level
       t.integer :user_id
 
+      t.boolean :boss
+
       t.integer :gold
 
       t.integer :experience
