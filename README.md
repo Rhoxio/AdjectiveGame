@@ -6,6 +6,7 @@ The game itself is based upon a simple premise: You are either an adventurer or 
 
 ## Players and Bosses
 
+
 I decided to go with an extremely open-ended design pattern when it comes to actual playable entities. There is no standard class-based system like many traditional RPGs enforce. Instead, the stats of each character or boss is what determines the moveset that is available to the character. However, this will be enforced by only having a certain number of move slots to work with. I plan to include passive and active effects as well. 
 
 For example, the character Azorius has a stat spread of 5 strength, 2 agility, 1 intellect, and 4 faith. This character, in traditional RPG terms, may classify as a Paladin or Crusader class. With 5 strength, the character has access to powerful moves like Overhead Smash (5 str requirement) while also having access to Heal (3 faith requirement). However, having low intellect means that his acuity (magic defense, basically) will be low. Also, having 2 in Agility unlocks the passive ability 'dodge' which gives a small chance to completely avoid attacks.
