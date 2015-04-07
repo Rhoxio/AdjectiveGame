@@ -16,25 +16,22 @@ module Combat
 	# Combat::Attack.method
 	# Combat::Defend.method
 
-	class Attack
+	class Offense
 
 	 	def self.attack_target(assailant, target, attack)
-	 		# @assailant = Character.find(assailant.id)
-	 		# @target = Character.find(target.id)
-	 		# @attack = Attack.find(attack.id)
+	 		# The assailant is only needed to pass in to the methods on the model. 
 
 	 		hit_roll = rand(attack.accuracy..100)
 	 		critical_strike = false
 
-	 		target_damage_mitigation = mitigation_check(assailant, target, attack)
+	 		target_damage_mitigation = Defense.mitigation_check(assailant, target, attack)
+	 		p target_damage_mitigation
 
 	 		if target_damage_mitigation['dodge'] == true || target_damage_mitigation['nullify'] == true 
 	 			target.take_damage(0)
 	 			target.save
 	 			return target
-	 		end
-
-	 		if hit_roll >= 100 || attack.always_hits
+	 		elsif hit_roll >= 100 || attack.always_hits
 	 			total_mititgation = target_damage_mitigation['defend'] + target_damage_mitigation['denounce']
 	 			target.take_damage(attack.damage - total_mititgation)
 	 			target.save
@@ -46,39 +43,31 @@ module Combat
 	 		# Return an object that will help the DOM render.
 	 	end
 
-	 	def mitigation_check(assailant, character, attack)
-	 		evasion_hash = {}
-
-	 		evasion_hash['defend'] = character.defend(assailant, attack)
-	 		evasion_hash['dodge'] = character.dodge(assailant, attack)
-	 		evasion_hash['nulifly'] = character.nullify(assailant, attack)
-	 		evasion_hash['denounce'] = character.denounce(assailant, attack)
-
-	 		return evasion_hash
-	 	end
-
-	 	def self.miss(target, attack)
-	 		# @target = Class.find(target.id)
-	 		# @target.take_damage(0)
-	 		# Return an object that lets the DOM render a miss. Should
-	 		# be fundamenally different from taking zero damage. 
-	 	end
-
-	 	def self.resist(target, attack)
-	 		# @target = Class.find(target.id)
-	 		# total_damage = @target.applicable_resistance - attack.damage
-	  end
-
-	  def self.dodge(target, attack)
-	  	# @target = Class.find(target.id)
-	  	# did_it_miss? = @target.dodge_method
-	  end
-
 	end
 
- class Defend
+ class Defense
+
+ 		 	def self.mitigation_check(assailant, character, attack)
+	 		evasion_hash = {}
+
+	 		if attack.true_damage
+	 			evasion_hash['defend'] = 0
+		 		evasion_hash['dodge'] = character.dodge?(assailant, attack)
+		 		evasion_hash['nullifly'] = character.nullify?(assailant, attack)
+		 		evasion_hash['denounce'] = 0
+		 		return evasion_hash
+	 		else
+		 		evasion_hash['defend'] = character.defend(assailant, attack)
+		 		evasion_hash['dodge'] = character.dodge?(assailant, attack)
+		 		evasion_hash['nullifly'] = character.nullify?(assailant, attack)
+		 		evasion_hash['denounce'] = character.denounce(assailant, attack)
+		 		return evasion_hash
+		 	end
+
+	 	end
 
  end
 
 
 end
+

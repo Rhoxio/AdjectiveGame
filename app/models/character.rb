@@ -16,15 +16,23 @@ class Character < ActiveRecord::Base
 
 # Defensive Abilities
 	def defend(assailant, attack)
-		if attack.damage > self.toughness && attack.attack_type == 'physical'
-			total_damage = damage - self.toughness
-			total_damage
+		diff = assailant.level - self.level
+
+		if attack.attack_type == 'physical'
+			total_damage_defended = self.toughness - diff
+			if total_damage_defended < 0
+				total_damage_defended = 0
+				return total_damage_defended
+			else
+				return total_damage_defended
+			end
 		else
 			return 0
 		end
+
 	end
 
-	def dodge(assailant, attack)
+	def dodge?(assailant, attack)
 		diff = assailant.level - self.level
 		total_dodge_chance = (self.evasion * 2) - diff
 		
@@ -35,7 +43,7 @@ class Character < ActiveRecord::Base
 		end
 	end
 
-	def nullify(assailant, attack)
+	def nullify?(assailant, attack)
 		diff = assailant.level - self.level
 		total_null_chance = (self.acuity * 2) - diff
 
@@ -47,9 +55,16 @@ class Character < ActiveRecord::Base
 	end
 
 	def denounce(assailant, attack)
-		if attack.damage > self.toughness && attack.attack_type == 'divine'
-			total_damage = damage - self.piety
-			total_damage
+		diff = assailant.level - self.level
+
+		if attack.attack_type == 'divine'
+			total_damage_defended = self.toughness - diff
+			if total_damage_defended < 0
+				total_damage_defended = 0
+				return total_damage_defended
+			else
+				return total_damage_defended
+			end
 		else
 			return 0
 		end
@@ -58,13 +73,18 @@ class Character < ActiveRecord::Base
 # Combat Utility
 
 	def take_damage(hit)
-		self.hitpoints -= hit
+		if hit > 0
+			self.hitpoints -= hit
+			p "#{self.name} took #{hit} damage!"
+		else
+			p "#{self.name} took no damage!"
+		end
 		self.save!
 	end
 
 	def full_mitigation_check(chance)
 		roll = rand(1..100)
-		if roll > chance
+		if roll < chance
 			return true
 		else
 			return false
