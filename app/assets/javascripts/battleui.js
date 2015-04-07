@@ -7,13 +7,13 @@ console.log("Loaded BattleUI...")
 ws = new WebSocket(SOCKET_URI)
 
 ws.onopen = function(){
-	console.log("Socket open")
-	ws.send('Initial Message from Socket')
+	console.log(ws)
+	// ws.send('Socket is Open!')
 }
 
 ws.onmessage = function(msg){
-	console.log(msg.data)
-	$('.text-display').html(msg.data)
+	character = $.parseJSON(msg.data)
+	$('.text-display').html(character.name)
 }
 
 ws.onclose = function(){
@@ -22,9 +22,11 @@ ws.onclose = function(){
 
 
 $('.test-button').on('click', function(){
-	$('.text-display').html("Text to be appended")
-	ws.send("Button Clicked")
+
+	ws.send('{"hello": "goodbye"}')
 })
+
+
 
 })
 

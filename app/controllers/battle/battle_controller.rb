@@ -32,8 +32,6 @@ module Battle
 				EventMachine.run{
 					EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 9001) do |ws|
 
-						Combat::Attack.hit('one', 'two')
-
 						ws.onopen{
 							@@clients << ws
 							puts "Websocket connection open with #{@@clients.length} clients."
@@ -48,9 +46,12 @@ module Battle
 
 						ws.onmessage{ |msg|
 							p @@socket_state
+							message = JSON.parse(msg)
+							p message['hello']
+							character = Character.find(1)
 
 							@@clients.each do |socket|
-								socket.send(msg)
+								socket.send(character.to_json)
 							end
 
 							puts "Recieved message: #{msg}"
