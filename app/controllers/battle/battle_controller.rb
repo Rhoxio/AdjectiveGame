@@ -47,11 +47,22 @@ module Battle
 						ws.onmessage{ |msg|
 							p @@socket_state
 							message = JSON.parse(msg)
-							p message['hello']
-							character = Character.find(1)
 
-							@@clients.each do |socket|
-								socket.send(character.to_json)
+							if message['action'] == 'attack'
+								target = Character.find(message['target'])
+								assailant = Character.find(message['assailant'])
+								attack = Attack.find(message['attack'])
+
+								resolved_target = Combat::Offense.attack_target(assailant, target, attack)
+
+								@@clients.each do |socket|
+									socket.send(resolved_target.to_json)
+								end
+
+							else
+								@@clients.each do |socket|
+									socket.send('Not a valid action.')
+								end
 							end
 
 							puts "Recieved message: #{msg}"

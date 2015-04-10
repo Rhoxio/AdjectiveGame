@@ -43,6 +43,7 @@ module Combat
 	 		# Return an object that will help the DOM render.
 	 	end
 
+
 	end
 
  class Defense
