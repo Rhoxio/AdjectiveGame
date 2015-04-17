@@ -22,10 +22,9 @@ module Combat
 	 		# The assailant is only needed to pass in to the methods on the model. 
 
 	 		hit_roll = rand(attack.accuracy..100)
-	 		critical_strike = false
+	 		critical_strike = critical_strike?(assailant, attack)
 
 	 		target_damage_mitigation = Defense.mitigation_check(assailant, target, attack)
-	 		p target_damage_mitigation
 
 	 		if target_damage_mitigation['dodge'] == true || target_damage_mitigation['nullify'] == true 
 	 			target.take_damage(0)
@@ -43,12 +42,38 @@ module Combat
 	 		# Return an object that will help the DOM render.
 	 	end
 
+	 	def self.critical_strike?(assailant, attack)
+	 		roll = rand(1..100)
+	 		total_crit_chance = assailant.agility + 10
+
+	 		if total_crit_chance > 70
+	 			total_crit_chance = 70
+	 			critical_threshold = 100 - total_crit_chance
+	 		else
+	 			critical_threshold = 100 - total_crit_chance
+	 		end
+
+	 		if attack.true_damage
+	 			return false
+	 		elsif roll > critical_threshold
+	 			return true
+	 		else
+	 			return false
+	 		end 
+	 	end
+
+	 	def apply_status(assailant, target, attack)
+	 		effect = attack.status_effect
+	 		if effect == false
+	 			return false
+	 		elsif 
+	 	end
 
 	end
 
- class Defense
+ 	class Defense
 
- 		 	def self.mitigation_check(assailant, character, attack)
+ 		def self.mitigation_check(assailant, character, attack)
 	 		evasion_hash = {}
 
 	 		if attack.true_damage
@@ -62,13 +87,11 @@ module Combat
 		 		evasion_hash['dodge'] = character.dodge?(assailant, attack)
 		 		evasion_hash['nullifly'] = character.nullify?(assailant, attack)
 		 		evasion_hash['denounce'] = character.denounce(assailant, attack)
-		 		return evasion_hash
-		 	end
+		 		return evasion_hash 		
+			end
+		end
 
-	 	end
-
- end
-
+ 	end
 
 end
 
