@@ -32,7 +32,13 @@ module Combat
 	 			return target
 	 		elsif hit_roll >= 100 || attack.always_hits
 	 			total_mititgation = target_damage_mitigation['defend'] + target_damage_mitigation['denounce']
-	 			target.take_damage(attack.damage - total_mititgation)
+
+	 			if critical_strike
+	 				target.take_damage((attack.damage - total_mititgation)*2)
+	 			else
+	 				target.take_damage(attack.damage - total_mititgation)
+	 			end
+
 	 			target.save
 	 			return target
 	 		end
