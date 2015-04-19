@@ -122,6 +122,55 @@ class Character < ActiveRecord::Base
 		end
 	end
 
+# Status Handlers
+
+	# I need to somehow keep track of the current buff/debuff
+	# stats that are given or taken by the buff/debuffs themselves.
+
+	# I could potentially just make some variables on this model
+	# and have the buff/debuff_timer_rotation return a hash where
+	# keys act as identifiers for the effect, values are the total_damage or booleans for 
+	# the stun/paralyze/confuse effect. They will be be calculated in the Combat::State module. 
+
+	def add_debuff(status)
+		self.debuffs << status
+	end
+
+	def add_buff(buff)
+		self.buffs << buff
+	end
+
+	def debuff_timer_rotation
+		debuff_actions = {}
+
+		self.debuffs.each do |status|
+			if status.duration_remaining <= 0
+				status.delete
+			else
+				debuff_actions[status.effect] = :active
+				status.tick
+			end
+		end
+
+		return debuff_actions
+	end
+
+	def buff_timer_rotation
+		buff_actions = {}
+
+		self.buffs.each do |buff|
+			if buff.duration_remaining <= 0
+				buff.delete
+			else
+				buff_actions[buff.effect] = :active
+				buff.tick
+			end
+		end
+
+		return buff_actions
+
+	end
+
 # Utility Calculation Methods
 
 	def level_calculation
@@ -185,5 +234,7 @@ class Character < ActiveRecord::Base
 			false
 		end
 	end
+
+
 
 end

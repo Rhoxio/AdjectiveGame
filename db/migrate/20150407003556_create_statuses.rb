@@ -8,12 +8,17 @@ class CreateStatuses < ActiveRecord::Migration
     	t.integer :damage
     	t.integer :healing
 
+      t.boolean :boss_applicable
+      t.boolean :player_applicable
+
     	t.integer :duration
     	t.integer :duration_remaining
 
     	t.integer :application_chance
 
     	t.string :effect
+
+      t.string :dispelled_by
 
       t.timestamps null: false
     end

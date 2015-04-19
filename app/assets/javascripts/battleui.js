@@ -6,6 +6,7 @@ function character(name, id){
 }
 
 function reqObject(action, target, assailant, attack){
+	 // Could just feed IDs in to this. The DB will have to figure it all out, anyway. 
 	this.action = action
 	this.target = target
 	this.assailant = assailant

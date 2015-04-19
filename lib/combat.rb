@@ -21,8 +21,8 @@ module Combat
 	 	def self.attack_target(assailant, target, attack)
 	 		# The assailant is only needed to pass in to the methods on the model. 
 
-	 		hit_roll = rand(attack.accuracy..100)
-	 		critical_strike = critical_strike?(assailant, attack)
+	 		hit_roll = rand(1..100)
+	 		critical_strike = self.critical_strike?(assailant, attack)
 
 	 		target_damage_mitigation = Defense.mitigation_check(assailant, target, attack)
 
@@ -30,16 +30,19 @@ module Combat
 	 			target.take_damage(0)
 	 			target.save
 	 			return target
-	 		elsif hit_roll >= 100 || attack.always_hits
-	 			total_mititgation = target_damage_mitigation['defend'] + target_damage_mitigation['denounce']
+	 		elsif hit_roll < attack.accuracy || attack.always_hits
+	 			total_mitigation = target_damage_mitigation['defend'] + target_damage_mitigation['denounce']
 
 	 			if critical_strike
-	 				target.take_damage((attack.damage - total_mititgation)*2)
+	 				total_damage = ((attack.damage - total_mitigation) * attack.critical_multiplier).round
+	 				target.take_damage(total_damage)
 	 			else
-	 				target.take_damage(attack.damage - total_mititgation)
+	 				target.take_damage(attack.damage - total_mitigation)
 	 			end
 
 	 			target.save
+	 			return target
+	 		else
 	 			return target
 	 		end
 
@@ -68,13 +71,6 @@ module Combat
 	 		end 
 	 	end
 
-	 	def apply_status(assailant, target, attack)
-	 		effect = attack.status_effect
-	 		if effect == false
-	 			return false
-	 		elsif 
-	 	end
-
 	end
 
  	class Defense
@@ -99,5 +95,29 @@ module Combat
 
  	end
 
+ 	class Status
+
+ 		def self.update_buffs(assailant, target, attack)
+ 			
+ 		end
+
+ 		def self.apply_status(assailant, target, attack)
+ 			
+ 		end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
