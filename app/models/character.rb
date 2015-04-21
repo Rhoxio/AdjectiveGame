@@ -171,13 +171,28 @@ class Character < ActiveRecord::Base
 		end
 	end
 
-	# def tick_all_buffs
+	def tick_all_buffs
+		self.buffs.each do |buff_key, duration_remaining|
 
-	# end
+			current_buff = Status.find_by name: buff_key
 
-	# def remove_debuff
+			if duration_remaining <= 1
+				self.take_damage(current_buff.tick)
+				self.buffs.delete(buff_key)
+				self.save!
+			else
+				self.take_damage(current_buff.tick)
+				self.buffs[buff_key] -= 1
+				self.save!
+			end
 
-	# end
+		end
+	end
+
+	def remove_debuff(attack)
+		# If attack.special_ability == debuff.dispelled_by
+		# remove that specific elemnt from the hash
+	end
 
 	# def remove_buff
 
