@@ -16,9 +16,9 @@ class Status < ActiveRecord::Base
 	end
 
 	def apply?
-		roll = rand(1..100)	
+		roll = rand(1..100)
 
-		if roll < application_chance
+		if roll < self.application_chance
 			return false
 		else
 			return true

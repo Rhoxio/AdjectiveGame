@@ -189,7 +189,7 @@ class Character < ActiveRecord::Base
 		end
 	end
 
-	def remove_debuff(attack)
+	def remove_debuff(ability)
 		# If attack.special_ability == debuff.dispelled_by
 		# remove that specific elemnt from the hash
 	end
