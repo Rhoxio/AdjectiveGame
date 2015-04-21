@@ -8,11 +8,16 @@ Weapon.create!(name: 'Simple Wooden Staff', weapon_type:'staff', weight: 5, atta
 Weapon.create!(name: "Bandit's Knife", weapon_type:'dagger', weight: 3, attack: 4, mending: 0, power: 0, defense: 0, avoidance: 1, resistance: 0, description: "A useful tool for gutting someone or something. It has the initials 'HK' carved in to it.")
 Weapon.create!(name: 'Simple Focus', weapon_type:'focus', weight: 3, attack: 0, mending: 0, power: 4, defense: 0, avoidance: 0, resistance: 1, description: 'A focus used to channel magical energies.')
 
-Attack.create!(name: 'Attack', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 1, critical_multiplier: 150, status_effect: 'none', status_application_chance: 0, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
-Attack.create!(name: 'Bash', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 2, critical_multiplier: 150, status_effect: 'weakness', status_application_chance: 50, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
-Attack.create!(name: 'Exorcism', level_requirement: 1, skill_point_cost: 0, attack_type: 'divine', damage: 2, critical_multiplier: 150, status_effect: 'none', status_application_chance: 0, accuracy: 100, always_hits: false, true_damage: true, recharge_time: 0)
-Attack.create!(name: 'Fireball', level_requirement: 1, skill_point_cost: 0, attack_type: 'elemental', damage: 3, critical_multiplier: 150, status_effect: 'none', status_application_chance: 0, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
-Attack.create!(name: 'Shank', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 2, critical_multiplier: 200, status_effect: 'none', status_application_chance: 0, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
+Attack.create!(name: 'Attack', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 1, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
+Attack.create!(name: 'Bash', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 2, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
+Attack.create!(name: 'Exorcism', level_requirement: 1, skill_point_cost: 0, attack_type: 'divine', damage: 2, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: true, recharge_time: 0)
+Attack.create!(name: 'Fireball', level_requirement: 1, skill_point_cost: 0, attack_type: 'elemental', damage: 3, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
+Attack.create!(name: 'Shank', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 2, critical_multiplier: 200, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
+
+Status.create!(name: 'Weak Poison', attack_id: 5, damage: 1, healing: 0, boss_applicable: true, player_applicable: true, duration: 3, duration_remaining: 3, status_type: :damage, application_chance: 100, effect: :poison, dispelled_by: 'antidote' )
+Status.create!(name: 'Renew', attack_id: 5, damage: 0, healing: 1, boss_applicable: true, player_applicable: true, duration: 3, duration_remaining: 3, status_type: :healing, application_chance: 100, effect: :poison, dispelled_by: 'dispell magic' )
+
+
 
 brawler = Character.find(1).weapon = Weapon.find(1)
 mender = Character.find(2).weapon = Weapon.find(2)

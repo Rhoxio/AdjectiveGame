@@ -5,14 +5,8 @@ class Character < ActiveRecord::Base
 	has_many :attacks
 	has_one :weapon
 
-	# def attack
-	# 	# Needs to be rewritten, as I don't use this model for damage any more. 
-	# 	if self.weapon == true
-	# 		self.strength + self.weapon.attack
-	# 	else
-	# 		self.strength
-	# 	end
-	# end
+# Character Creation
+
 
 # Defensive Abilities
 	def defend(assailant, attack)
@@ -76,6 +70,8 @@ class Character < ActiveRecord::Base
 		if hit > 0
 			self.hitpoints -= hit
 			p "#{self.name} took #{hit} damage!"
+		elsif hit == false
+			p 'The attack did not hit #{self.name}.'
 		else
 			p "#{self.name} took no damage!"
 		end
@@ -110,6 +106,13 @@ class Character < ActiveRecord::Base
 		end
 	end
 
+	def restore_hitpoints(amount)
+		self.hitpoints += amount
+		health_overflow_check
+		self.save!
+	end
+
+# I dont know about this method... I need to review all of these things. 
 	def heal
 		if self.weapon == true
 			self.hitpoints += (self.faith + self.weapon.mending)
@@ -133,43 +136,59 @@ class Character < ActiveRecord::Base
 	# the stun/paralyze/confuse effect. They will be be calculated in the Combat::State module. 
 
 	def add_debuff(status)
-		self.debuffs << status
+		if self.debuffs[status.name] == true
+			self.debuffs[status.name] += status.duration
+			self.save
+		else
+			self.debuffs[status.name] = status.duration
+			self.save
+		end
 	end
 
 	def add_buff(buff)
-		self.buffs << buff
-	end
-
-	def debuff_timer_rotation
-		debuff_actions = {}
-
-		self.debuffs.each do |status|
-			if status.duration_remaining <= 0
-				status.delete
-			else
-				debuff_actions[status.effect] = :active
-				status.tick
-			end
+		if self.buffs[buff.name] == true
+			self.buffs[buff.name] += buff.duration
+		else
+			self.buffs[buff.name] = buff.duration
 		end
-
-		return debuff_actions
 	end
 
-	def buff_timer_rotation
-		buff_actions = {}
+	def tick_all_debuffs
+		self.debuffs.each do |debuff_key, duration_remaining|
 
-		self.buffs.each do |buff|
-			if buff.duration_remaining <= 0
-				buff.delete
+			current_debuff = Status.find_by name: debuff_key
+
+			if duration_remaining <= 1
+				self.take_damage(current_debuff.tick)
+				self.debuffs.delete(debuff_key)
+				self.save!
 			else
-				buff_actions[buff.effect] = :active
-				buff.tick
+				self.take_damage(current_debuff.tick)
+				self.debuffs[debuff_key] -= 1
+				self.save!
 			end
+
 		end
-
-		return buff_actions
-
 	end
+
+	# def tick_all_buffs
+
+	# end
+
+	# def remove_debuff
+
+	# end
+
+	# def remove_buff
+
+	# end
+
+	def clear_stauses
+		self.buffs = {}
+		self.debuffs = {}
+	end
+
+
 
 # Utility Calculation Methods
 

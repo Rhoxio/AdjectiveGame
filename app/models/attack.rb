@@ -1,5 +1,5 @@
 class Attack < ActiveRecord::Base
 	belongs_to :character
-	has_many :statuses
+	has_one :status
 
 end

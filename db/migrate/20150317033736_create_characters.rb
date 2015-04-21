@@ -45,8 +45,6 @@ class CreateCharacters < ActiveRecord::Migration
       t.integer :hit_chance
 
       # Will be run through helper methods to calculate effects.
-      t.string :debuffs, :array => true
-      t.string :buffs, :array => true
 
       t.timestamps null: false
     end

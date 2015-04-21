@@ -10,9 +10,6 @@ class CreateAttacks < ActiveRecord::Migration
       t.integer :damage
       t.integer :critical_multiplier
 
-      t.string :status_effect
-      t.integer :status_application_chance
-
       t.integer :accuracy
       t.boolean :always_hits
       t.boolean :true_damage

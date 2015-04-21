@@ -11,38 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407003556) do
+ActiveRecord::Schema.define(version: 20150421020418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "attacks", force: :cascade do |t|
     t.string   "name"
     t.integer  "level_requirement"
     t.integer  "skill_point_cost"
-    t.integer  "stat_point_cost"
     t.string   "attack_type"
     t.integer  "damage"
     t.integer  "critical_multiplier"
-    t.string   "status_effect"
-    t.integer  "status_application_chance"
     t.integer  "accuracy"
     t.boolean  "always_hits"
     t.boolean  "true_damage"
     t.integer  "recharge_time"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "characters", force: :cascade do |t|
     t.string   "name"
-    t.string   "player_class"
     t.string   "player_race"
     t.integer  "level"
-    t.integer  "experience"
-    t.integer  "skill_points"
-    t.integer  "gold"
     t.integer  "user_id"
+    t.boolean  "boss"
+    t.integer  "gold"
+    t.integer  "experience"
+    t.integer  "max_skill_points"
+    t.integer  "skill_points"
     t.integer  "hitpoints"
     t.integer  "max_hitpoints"
     t.integer  "constitution"
@@ -54,12 +53,14 @@ ActiveRecord::Schema.define(version: 20150407003556) do
     t.integer  "evasion"
     t.integer  "acuity"
     t.integer  "piety"
+    t.integer  "critical_chance"
+    t.integer  "critical_modifier"
     t.integer  "initiative"
     t.integer  "hit_chance"
-    t.string   "debuffs",                    array: true
-    t.string   "buffs",                      array: true
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.hstore   "buffs",             default: {}, null: false
+    t.hstore   "debuffs",           default: {}, null: false
   end
 
   create_table "items", force: :cascade do |t|
@@ -84,8 +85,20 @@ ActiveRecord::Schema.define(version: 20150407003556) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.integer  "attack_id"
+    t.integer  "damage"
+    t.integer  "healing"
+    t.string   "status_type"
+    t.boolean  "boss_applicable"
+    t.boolean  "player_applicable"
+    t.integer  "duration"
+    t.integer  "duration_remaining"
+    t.integer  "application_chance"
+    t.string   "effect"
+    t.string   "dispelled_by"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -109,6 +122,7 @@ ActiveRecord::Schema.define(version: 20150407003556) do
     t.integer  "defense"
     t.integer  "avoidance"
     t.integer  "resistance"
+    t.string   "effect"
     t.text     "description"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false

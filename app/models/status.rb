@@ -1,11 +1,9 @@
 class Status < ActiveRecord::Base
 
 	def tick
-		if self.duration_remaning <= 0
+		if self.duration_remaining <= 0
 			return false
 		else
-			self.duration_remaning -= 1
-
 			if self.damage > 0
 				return self.damage
 			elsif self.healing > 0
@@ -20,7 +18,7 @@ class Status < ActiveRecord::Base
 	def apply?
 		roll = rand(1..100)	
 
-		if roll < application chance
+		if roll < application_chance
 			return false
 		else
 			return true

@@ -97,13 +97,53 @@ module Combat
 
  	class Status
 
- 		def self.update_buffs(assailant, target, attack)
- 			
+ 		def self.tick_all_statuses(characters)
+
+ 			characters.each do |character|
+
+ 				character.debuffs.each do |debuff_id|
+
+ 					current_debuff = Status.find(debuff_id)
+
+ 					if current_debuff.status_type == :damage
+ 						character.take_damage(current_debuff.tick)
+ 						character.save
+ 					elsif current_debuff.status_type == :healing
+ 						character.restore_hitpoints(current_debuff.tick)
+ 						character.save
+ 					else
+ 						debuff.tick
+ 					end
+ 				end
+
+				character.buffs.each do |buff_id|
+
+					current_buff = Status.find(buff_id)
+
+					if current_buff.status_type == :damage
+						character.take_damage(current_buff.tick)
+						character.save
+					elsif current_buff.status_type == :healing
+						character.restore_hitpoints(current_buff.tick)
+						character.save
+					else
+						buff.tick
+					end
+				end
+	 		end
  		end
 
+ 		# The main issue that I am running to is figuring out how I want to actually 
+ 		# get the numbers off of the database. I think I am simply going to save the 
+ 		# status IDs in the debuffs/buffs arrays and just each over them and use .find(num)
+ 		# to get their data off of the database. This is slower than hashing, but it would be a lot easier.
+
  		def self.apply_status(assailant, target, attack)
- 			
+
  		end
+
+
+ 	end
 
 end
 
