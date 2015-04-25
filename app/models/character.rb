@@ -69,18 +69,16 @@ class Character < ActiveRecord::Base
 	def take_damage(hit)
 		if hit > 0
 			self.hitpoints -= hit
-			p "#{self.name} took #{hit} damage!"
 		elsif hit == false
 			p 'The attack did not hit #{self.name}.'
 		else
-			p "#{self.name} took no damage!"
 		end
 		self.save!
 	end
 
 	def full_mitigation_check(chance)
 		roll = rand(1..100)
-		if roll < chance
+		if roll <= chance
 			return true
 		else
 			return false
@@ -177,11 +175,11 @@ class Character < ActiveRecord::Base
 			current_buff = Status.find_by name: buff_key
 
 			if duration_remaining <= 1
-				self.take_damage(current_buff.tick)
+				self.restore_hitpoints(current_buff.tick)
 				self.buffs.delete(buff_key)
 				self.save!
 			else
-				self.take_damage(current_buff.tick)
+				self.restore_hitpoints(current_buff.tick)
 				self.buffs[buff_key] -= 1
 				self.save!
 			end
@@ -198,7 +196,7 @@ class Character < ActiveRecord::Base
 
 	# end
 
-	def clear_stauses
+	def clear_statuses
 		self.buffs = {}
 		self.debuffs = {}
 	end
@@ -256,14 +254,19 @@ class Character < ActiveRecord::Base
 # Currency Logic
 
 	def acquire_gold(amount)
-		self.gold += amount
-		self.save!
+		if amount != false
+			self.gold += amount
+			self.save!
+		else
+			false
+		end
 	end
 
 	def give_gold(amount)
-		if self.gold > amount
+		if self.gold >= amount
 		 	self.gold -= amount
 		 	self.save!
+		 	return amount
 		else
 			false
 		end

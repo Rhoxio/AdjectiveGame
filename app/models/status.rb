@@ -1,17 +1,12 @@
 class Status < ActiveRecord::Base
 
 	def tick
-		if self.duration_remaining <= 0
-			return false
+		if self.status_type == 'healing'
+			return self.healing
+		elsif self.status_type == 'damage'
+			return self.damage
 		else
-			if self.damage > 0
-				return self.damage
-			elsif self.healing > 0
-				return self.healing
-			else
-				return true
-			end
-
+			return 0
 		end
 	end
 
