@@ -136,11 +136,10 @@ class Character < ActiveRecord::Base
 	def add_debuff(status)
 		if self.debuffs[status.name] == true
 			self.debuffs[status.name] += status.duration
-			self.save
 		else
 			self.debuffs[status.name] = status.duration
-			self.save
 		end
+		self.save!
 	end
 
 	def add_buff(buff)
@@ -149,6 +148,7 @@ class Character < ActiveRecord::Base
 		else
 			self.buffs[buff.name] = buff.duration
 		end
+		self.save
 	end
 
 	def tick_all_debuffs
@@ -159,14 +159,12 @@ class Character < ActiveRecord::Base
 			if duration_remaining <= 1
 				self.take_damage(current_debuff.tick)
 				self.debuffs.delete(debuff_key)
-				self.save!
 			else
 				self.take_damage(current_debuff.tick)
 				self.debuffs[debuff_key] -= 1
-				self.save!
 			end
-
 		end
+		self.save!
 	end
 
 	def tick_all_buffs
@@ -177,24 +175,31 @@ class Character < ActiveRecord::Base
 			if duration_remaining <= 1
 				self.restore_hitpoints(current_buff.tick)
 				self.buffs.delete(buff_key)
-				self.save!
 			else
 				self.restore_hitpoints(current_buff.tick)
 				self.buffs[buff_key] -= 1
-				self.save!
 			end
+		end
+		self.save!
+	end
 
+	def remove_debuff(status)
+		if status
+			self.debuffs.delete(status)
+			self.save!
+		else
+			return false
 		end
 	end
 
-	def remove_debuff(ability)
-		# If attack.special_ability == debuff.dispelled_by
-		# remove that specific elemnt from the hash
+	def remove_buff(status)
+		if status
+			self.buffs.delete(status)
+			self.save!
+		else
+			return false
+		end
 	end
-
-	# def remove_buff
-
-	# end
 
 	def clear_statuses
 		self.buffs = {}

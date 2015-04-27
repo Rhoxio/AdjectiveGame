@@ -104,11 +104,6 @@ module Combat
 
  	class Status
 
- 		def self.tick_all_statuses(characters)
- 			characters.each {|character| character.tick_all_buffs}
- 			characters.each {|character| character.tick_all_debuffs}
- 		end
-
  		# The main issue that I am running to is figuring out how I want to actually 
  		# get the numbers off of the database. I think I am simply going to save the 
  		# status IDs in the debuffs/buffs arrays and just each over them and use .find(num)
@@ -119,22 +114,44 @@ module Combat
 	 		# calculated here, but the values that get returned from the model is the stuff that is needed
 	 		# to update the models accordingly as well as output updated models.to_json for the sockets to send.
 
+	 		# EDIT FOR GREAT JUSTICE: I actually ended up using hstore in AR to persist hashes so I just have to call an attribute
+	 		# on an instance of a model to get the hash that I need. Easy!
+
  		# Fat model, skinny controller. 
 
+ 		def self.tick_all_statuses(characters)
+ 			characters.each {|character| character.tick_all_buffs}
+ 			characters.each {|character| character.tick_all_debuffs}
+ 		end
+
  		def self.apply_status(assailant, target, attack)
+ 			# assailant is a placeholder for complex logic later. Might or might not use it.
  			status = attack.status
 
- 			# YOU DONT NEED TO WORRY ABOUT THE DAMAGE THE STUPID DEBUFFS DO. IT IS ON THEIR MODEL.
- 			if status.status_type == :healing
+ 			# YOU DONT NEED TO WORRY ABOUT THE DAMAGE/HEALING THE FUCKING STATUSES DO. IT IS ON THEIR MODEL.
+ 			if status.status_type == 'healing'
  				target.add_buff(status)
  				target.save
- 			elsif status.status_type == :damage
+ 			elsif status.status_type == 'damage'
  				target.add_debuff(status)
  				target.save
  			else
  				return false
  			end
  		end
+
+ 		def self.remove_status(assailant, target, attack)
+ 			# assailant is a placeholder for complex logic later. Might or might not use it.
+ 			if attack.attack_type == 'healing' && target.debuffs[attack.removes_status] != nil
+ 				target.remove_debuff(attack.removes_status)
+ 			elsif attack.attack_type == 'healing' && target.buffs[attack.removes_status] != nil
+ 				target.remove_buff(attack.removes_status)
+ 			else
+ 				return false
+ 			end
+ 			target.save!
+ 		end
+
 
 
  	end

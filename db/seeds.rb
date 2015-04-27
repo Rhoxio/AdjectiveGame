@@ -14,6 +14,8 @@ Attack.create!(name: 'Exorcism', level_requirement: 1, skill_point_cost: 0, atta
 Attack.create!(name: 'Fireball', level_requirement: 1, skill_point_cost: 0, attack_type: 'elemental', damage: 3, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
 Attack.create!(name: 'Shank', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 2, critical_multiplier: 200, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
 
+Attack.create!(name: 'Cleanse', level_requirement: 1, skill_point_cost: 0, attack_type: 'healing', damage: 0, critical_multiplier: 0, accuracy: 100, always_hits: true, true_damage: false, recharge_time: 0, removes_status: 'Weak Poison')
+
 Status.create!(name: 'Weak Poison', attack_id: 5, damage: 1, healing: 0, boss_applicable: true, player_applicable: true, duration: 3, duration_remaining: 3, status_type: :damage, application_chance: 100, effect: :poison, dispelled_by: 'antidote' )
 Status.create!(name: 'Renew', attack_id: 5, damage: 0, healing: 1, boss_applicable: true, player_applicable: true, duration: 3, duration_remaining: 3, status_type: :healing, application_chance: 100, effect: :poison, dispelled_by: 'dispell magic' )
 

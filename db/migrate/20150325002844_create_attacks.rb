@@ -8,7 +8,10 @@ class CreateAttacks < ActiveRecord::Migration
       t.string :attack_type
 
       t.integer :damage
+      t.integer :healing
       t.integer :critical_multiplier
+
+      t.string :removes_status
 
       t.integer :accuracy
       t.boolean :always_hits

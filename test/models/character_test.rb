@@ -2,9 +2,13 @@ require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
 
-	azorius = Character.create!(name: 'Azorius', hitpoints: 10, max_hitpoints: 10, gold: 0)
-	rhoxio = Character.create!(name:'Rhoxio', hitpoints: 10, max_hitpoints: 10, gold: 0)
+
+	azorius = Character.create!(name: 'Azorius', level: 1, hitpoints: 10, strength: 1, max_hitpoints: 10, gold: 0)
+	rhoxio = Character.create!(name:'Rhoxio', level: 1, hitpoints: 10, max_hitpoints: 10, gold: 0)
 	
+	enemy = Character.create!(name: 'Baddie', level: 1, hitpoints: 10, max_hitpoints: 10)
+	attack = Attack.create!(name: 'Attack', damage: 1, attack_type: 'physical', accuracy: 100, always_hits: true)
+
 	debuff = Status.create!(name: 'Poison', damage: 1, duration: 3, status_type: 'damage')
 	buff = Status.create!(name: 'Renew', healing: 1, duration: 3, status_type: 'healing')
 
@@ -28,7 +32,6 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test 'character can become debuffed' do
-  	debuff = Status.create!(name: 'Poison', damage: 1, duration: 3)
   	azorius.add_debuff(debuff)
   	assert(azorius.debuffs['Poison'], 'Debuff did not apply')
   end
@@ -43,7 +46,7 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test 'character can be hit when mitigation check fails' do
-  	refute(azorius.full_mitigation_check(0), 'Move still resolved to true.')
+  	refute(azorius.full_mitigation_check(0), 'Move hit status still resolved to true.')
   end
 
   test 'character damage debuffs tick as expected' do
@@ -72,13 +75,24 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test 'should acquire gold' do
+  	initial_gold = azorius.gold
+
   	azorius.acquire_gold(10)
-  	assert(azorius.gold == 10, 'Character did not acquire gold')
+  	assert(azorius.gold > initial_gold, 'Character did not acquire gold')
   end
 
   test 'should give gold if character has enough' do
-  	rhoxio.acquire_gold(10)
-  	assert(rhoxio.gold == 10, 'Character did not give up gold')
+  	azorius.acquire_gold(rhoxio.give_gold(10))
+  	assert(rhoxio.gold == 0, 'Character did not give up gold')
+  end
+
+  test 'should commit a gold transaction between characters' do
+  	azorius.gold = 0
+  	rhoxio.gold = 10
+  	initial_gold = azorius.gold
+
+  	azorius.acquire_gold(rhoxio.give_gold(10))
+  	assert(azorius.gold == 10 && rhoxio.gold == 0, "Did not have the right amount. Azorius: #{azorius.gold} Rhoxio: #{rhoxio.gold}")
   end
 
   test 'character should be alive with more than 1 hp' do
@@ -89,6 +103,15 @@ class CharacterTest < ActiveSupport::TestCase
   test 'character should be dead with 0 or less than 0 hp.' do
   	azorius.hitpoints = 0
   	refute(azorius.alive?, 'Character did not register as dead even though hp was 0.')
+  end
+
+  test 'can assign skillpoints to characters' do
+  	azorius.assign_skillpoint('strength', 1)
+  	assert(azorius.strength == 2, 'Stats were not distributed correctly.')
+  end
+
+  test 'does not assign skill points if invlid attribute is specified' do
+  	refute(azorius.assign_skillpoint('', 1), 'Somehow, theres a blank string as an attribute. Not sure if its even possible')
   end
 
 end
