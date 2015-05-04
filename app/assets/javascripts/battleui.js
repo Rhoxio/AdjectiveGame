@@ -15,6 +15,8 @@ function reqObject(action, target, assailant, attack){
 
 $(document).ready(function(){
 
+console.log("Loaded BattleUI...")
+
 view = new View
 
 bob = new character("Bob", 1)
@@ -23,10 +25,6 @@ jim = new character("Jim", 3)
 rick = new character("Rick", 4)
 
 view.loadCharacters([bob, mandy, jim, rick])
-
-// view.loadCharacters()
-
-console.log("Loaded BattleUI...")
 
 ws = new WebSocket(SOCKET_URI)
 

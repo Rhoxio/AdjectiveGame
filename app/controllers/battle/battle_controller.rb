@@ -44,6 +44,13 @@ module Battle
 							@@clients.delete ws
 						}
 
+						# I wonder if there is a better way to delegate the flow of logic here. 
+						# I initially assumed that most of it would be processed in a few of the
+						# classes in the Combat module, but I think there might be a way to actually
+						# change the socket object being used in certain situations. I just need 
+						# to be aware of the changes being made on the front-end so the back-end
+						# doesnt end up having holes.
+
 						ws.onmessage{ |msg|
 							p @@socket_state
 							message = JSON.parse(msg)

@@ -6,6 +6,8 @@ class CombatTest < ActiveSupport::TestCase
 
 	normal_attack = Attack.create!(name: 'Attack', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 1, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
 	poison_attack = Attack.create!(name: 'Attack', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 1, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
+	true_damage_attack = Attack.create!(name: 'Attack', level_requirement: 1, skill_point_cost: 0, attack_type: 'physical', damage: 1, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: true, recharge_time: 0)
+
 
 	renew = Attack.create!(name: 'Attack', level_requirement: 1, skill_point_cost: 0, attack_type: 'healing', damage: 0, critical_multiplier: 150, accuracy: 100, always_hits: false, true_damage: false, recharge_time: 0)
 
@@ -50,6 +52,10 @@ class CombatTest < ActiveSupport::TestCase
 		defense_hash = Combat::Defense.mitigation_check(attacker, defender, normal_attack)
 		assert(Combat::Offense.hit_target?(defense_hash), 'Did not dodge the attack.')
 	end
+
+	test 'should not critically hit if an attack does true damage' do
+		assert(Combat::Offense.critical_strike?(attacker, true_damage_attack) == false, 'Critical strikes happen on true damage attacks.')
+	end	
 
 
 

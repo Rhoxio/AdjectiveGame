@@ -10,6 +10,8 @@ numConvert[7] = 'seven'
 numConvert[8] = 'eight'
 numConvert[9] = 'nine'
 
+// Is there an easier way to map this shit out instead if just constructing a hash like this? 
+
 var View = function(){
 	console.log('View loaded...')
 }
@@ -30,6 +32,9 @@ View.prototype.loadCharacters = function(characters){
 	})
 	// I am assuming an array will be passed in here. If I use a hash, I will have to change this.
 
+	// Also, the boss is not loaded here. It has it's own method, so I will have to write some 
+	// initial start state logic to delegate the objects being returned from the DB to the right places in the DOM.
+
 	// I also need to assign ids based upon their own ids. That means I am going to have to add
 	// an ID field to the elements using javascript/jquery. I think this
 	// is clean, but I will have to test it out to see how it behaves.
@@ -48,13 +53,12 @@ View.prototype.textCycle = function(responseObject){
 }
 
 View.prototype.displayItems = function(items){
-	// This function is going to be linked to items associated with the current session ID
-	// of the person playing. I am not usre how I am going to implement a balanced
-	// item system in a multiplayer game (probably some limit on how many can be used per fight),
-	// but I can worry about that once I atually get the logic written for it.
+	// Why don't I just give the characters two accessories with an effect that can be used in the fight. 
+	// It would help balance status ailment issues if they are only allowed to cleanse themseles of a buff/debuff, 
+	// as it 'wastes' a turn. 
 
 	// Also, you need to save individual states to make it toggle. Design decisions... 
-	$('.inventory-display').css('visibility', 'visible')
+	$('.accessory-display').css('visibility', 'visible')
 
 }
 

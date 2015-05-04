@@ -36,7 +36,9 @@ module Combat
 
 
 	 		if target_passed_evasion_check
-	 		 # Could put this logic on the model. 
+	 		 # If false, the attack misses and they take 0 damage. I do this because
+	 		 # there may be things later that update on attack/defend. I don't see how it could
+	 		 # cause problems immediately, so I'll leave it. 
 	 			target.take_damage(0)
 	 			target.save
 	 			return target
