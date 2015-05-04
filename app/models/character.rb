@@ -7,6 +7,29 @@ class Character < ActiveRecord::Base
 
 # Character Creation
 
+	def generate_character_stats
+		self.generate_max_health
+		self.generate_mitigation_stats
+	end
+
+	def generate_max_health
+		if self.boss?
+			self.max_hitpoints = (self.constitution * 50) + (self.level * 2)
+		else
+			self.max_hitpoints = (self.constitution * 20) + self.level
+		end
+		self.save!
+	end
+
+	def generate_mitigation_stats
+		self.toughness = (self.level * self.strength) / 2.ceil
+		self.piety = (self.level * self.faith) / 2.ceil
+
+		self.acuity = (self.level * self.intelligence)
+		self.evasion = (self.level * self.agility)
+
+		self.save!
+	end
 
 # Defensive Abilities
 	def defend(assailant, attack)

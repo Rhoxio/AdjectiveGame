@@ -3,7 +3,7 @@ require 'test_helper'
 class CharacterTest < ActiveSupport::TestCase
 
 
-	azorius = Character.create!(name: 'Azorius', level: 1, hitpoints: 10, strength: 1, max_hitpoints: 10, gold: 0)
+	azorius = Character.create!(name: 'Azorius', level: 1, hitpoints: 10, constitution: 5, strength: 5, agility: 1, intelligence: 1, faith: 1, max_hitpoints: 10, gold: 0)
 	rhoxio = Character.create!(name:'Rhoxio', level: 1, hitpoints: 10, max_hitpoints: 10, gold: 0)
 	
 	enemy = Character.create!(name: 'Baddie', level: 1, hitpoints: 10, max_hitpoints: 10)
@@ -106,12 +106,28 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test 'can assign skillpoints to characters' do
+  	azorius.strength = 5
   	azorius.assign_skillpoint('strength', 1)
-  	assert(azorius.strength == 2, 'Stats were not distributed correctly.')
+  	assert(azorius.strength == 6, "Stats were not distributed correctly: #{azorius.strength}")
   end
 
   test 'does not assign skill points if invlid attribute is specified' do
   	refute(azorius.assign_skillpoint('', 1), 'Somehow, theres a blank string as an attribute. Not sure if its even possible')
+  end
+
+  test 'assigns the correct evasion stats on generation' do
+  	azorius.level = 6
+  	azorius.strength = 8
+  	azorius.agility = 5
+  	azorius.intelligence = 5
+  	azorius.faith = 0
+
+  	azorius.generate_character_stats
+
+  	assert(azorius.toughness == 24, "Did not calculate toughness correctly: #{azorius.toughness}")
+  	assert(azorius.evasion == 30, "Did not calculate evasion correctly: #{azorius.evasion}")
+  	assert(azorius.acuity == 30, "Did not calculate acuity correctly: #{azorius.acuity}")
+  	assert(azorius.piety == 0, "Did not calculate piety correctly: #{azorius.piety}")
   end
 
 end

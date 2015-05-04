@@ -45,4 +45,21 @@ class CombatTest < ActiveSupport::TestCase
 		assert(defender.buffs == {}, "Did not remove the buff: #{defender.buffs}")
 	end
 
+	test 'should return true when an attack is dodged' do
+		defender.evasion = 100
+		defense_hash = Combat::Defense.mitigation_check(attacker, defender, normal_attack)
+		assert(Combat::Offense.hit_target?(defense_hash), 'Did not dodge the attack.')
+	end
+
+
+
 end
+
+
+
+
+
+
+
+
+

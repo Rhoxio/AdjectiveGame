@@ -32,8 +32,10 @@ module Combat
 	 		critical_strike = self.critical_strike?(assailant, attack)
 
 	 		target_damage_mitigation = Defense.mitigation_check(assailant, target, attack)
+	 		target_passed_evasion_check = self.hit_target?(target_damage_mitigation)
 
-	 		if target_damage_mitigation['dodge'] == true || target_damage_mitigation['nullify'] == true
+
+	 		if target_passed_evasion_check
 	 		 # Could put this logic on the model. 
 	 			target.take_damage(0)
 	 			target.save
@@ -56,6 +58,16 @@ module Combat
 	 		end
 
 	 		# Return an object that will help the DOM render. 
+	 	end
+
+	 	# Might be able to stick this logic on the model somehow. I am still a little skeptical about
+	 	# placing this in this module... I will have to have Scott look at it. 
+	 	def self.hit_target?(mitigation_hash)
+	 		if mitigation_hash['defend'] == true || mitigation_hash['nullify'] == true
+	 			return false
+	 		else
+	 			return true
+	 		end
 	 	end
 
 	 	def self.critical_strike?(assailant, attack)
