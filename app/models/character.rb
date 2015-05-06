@@ -33,6 +33,7 @@ class Character < ActiveRecord::Base
 
 # Defensive Abilities
 	def defend(assailant, attack)
+		# Can be refactored using a Ternary operator
 		diff = assailant.level - self.level
 
 		if attack.attack_type == 'physical'
@@ -72,6 +73,7 @@ class Character < ActiveRecord::Base
 	end
 
 	def denounce(assailant, attack)
+		# Can be refactored using a Ternary operator
 		diff = assailant.level - self.level
 
 		if attack.attack_type == 'divine'
@@ -92,9 +94,10 @@ class Character < ActiveRecord::Base
 	def take_damage(hit)
 		if hit > 0
 			self.hitpoints -= hit
-		elsif hit == false
-			p 'The attack did not hit #{self.name}.'
+		elsif hit == false || hit == 0
+			p 'The attack did not deal damage to #{self.name}.'
 		else
+			return false
 		end
 		self.save!
 	end
@@ -133,7 +136,7 @@ class Character < ActiveRecord::Base
 		self.save!
 	end
 
-# I dont know about this method... I need to review all of these things. 
+# I dont know about this method... I need to review how I want healing to work. 
 	def heal
 		if self.weapon == true
 			self.hitpoints += (self.faith + self.weapon.mending)
@@ -154,7 +157,14 @@ class Character < ActiveRecord::Base
 	# I could potentially just make some variables on this model
 	# and have the buff/debuff_timer_rotation return a hash where
 	# keys act as identifiers for the effect, values are the total_damage or booleans for 
-	# the stun/paralyze/confuse effect. They will be be calculated in the Combat::State module. 
+	# the stun/paralyze/confuse effect. They will be be calculated in the Combat::Status module.
+
+	# SUPER EDIT: The current system as of late April uses a hash map to handle status effects. I had
+	# an epiphany about how I could effectively store two states in a simple hash. The hash itself looks something like:
+	# {'Poison'=>3, 'Burn'=>2}. The value is the duration remaining, and the key is actually how I ended up finding the
+	# status object in the database to run the damage or healing associated with it per 'tick' of a specific buff or debuff.
+
+	# Hashes kick ass.
 
 	def add_debuff(status)
 		if self.debuffs[status.name] == true
@@ -227,6 +237,7 @@ class Character < ActiveRecord::Base
 	def clear_statuses
 		self.buffs = {}
 		self.debuffs = {}
+		self.save!
 	end
 
 
@@ -282,7 +293,7 @@ class Character < ActiveRecord::Base
 # Currency Logic
 
 	def acquire_gold(amount)
-		if amount != false
+		if amount != false && amount != nil
 			self.gold += amount
 			self.save!
 		else

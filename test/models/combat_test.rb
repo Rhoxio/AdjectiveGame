@@ -54,7 +54,7 @@ class CombatTest < ActiveSupport::TestCase
 	end
 
 	test 'should not critically hit if an attack does true damage' do
-		assert(Combat::Offense.critical_strike?(attacker, true_damage_attack) == false, 'Critical strikes happen on true damage attacks.')
+		assert(Combat::Offense.critical_strike?(attacker, true_damage_attack) == false, 'Critical strikes happen on true damage attacks. Oh god fix it!')
 	end
 
 end
