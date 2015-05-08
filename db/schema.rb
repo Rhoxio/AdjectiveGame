@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150421020418) do
 
   create_table "attacks", force: :cascade do |t|
     t.string   "name"
+    t.integer  "character_id"
     t.integer  "level_requirement"
     t.integer  "skill_point_cost"
     t.string   "attack_type"

@@ -28,6 +28,12 @@ mender = Character.find(2).weapon = Weapon.find(2)
 rogue = Character.find(3).weapon = Weapon.find(3)
 sorcerer = Character.find(4).weapon = Weapon.find(4)
 
+char = Character.find(1)
+boss = Character.find(5)
+
+
+char.attacks << Attack.find(1) << Attack.find(2) << Attack.find(3)
+boss.attacks << Attack.find(1) << Attack.find(2) << Attack.find(3)
 # brawler.weapon = Weapon.find(1)
 
 

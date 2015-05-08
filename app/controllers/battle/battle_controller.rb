@@ -33,16 +33,18 @@ module Battle
 					EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 9001) do |ws|
 
 						ws.onopen{
+							# Much of this will change when I get sessions up and running correctly. I just need some logic to play with right now.
 							@@clients << ws
 							puts "Websocket connection open with #{@@clients.length} clients."
 							@@socket_state = :on
 							ws.send({'action' => 'load',
-											 'boss' => Character.find(5).to_json,
+											 'boss' => Character.find(5).to_json(:include => :attacks),
 											 'characters' => [Character.find(1), 
 																			 	Character.find(2), 
-																			 	Character.find(3), 
-																			 	Character.find(4)]}.to_json)
-						}
+																			 	Character.find(3),
+																			 	Character.find(4)],
+											 'attacks' => Character.find(1).attacks}.to_json
+							)}
 
 						ws.onclose{
 							puts "Connection closed"

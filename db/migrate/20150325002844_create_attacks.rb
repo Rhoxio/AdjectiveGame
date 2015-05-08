@@ -2,6 +2,7 @@ class CreateAttacks < ActiveRecord::Migration
   def change
     create_table :attacks do |t|
       t.string :name
+      t.integer :character_id
       t.integer :level_requirement
       t.integer :skill_point_cost
 

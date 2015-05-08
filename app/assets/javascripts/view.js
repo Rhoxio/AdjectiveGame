@@ -19,10 +19,14 @@ var View = function(){
 View.prototype.updateTarget = function(object){
 // This is going to have to loate the DOM elemtnts associated with the object
 // and ammend all of the values based on the data in that object.
-$('#everyfuckingelemenetid'+object.id).html('New stuff!')
+
+// Also, I should just make a method to loop this so I can control which objects
+// end up getting updated. 
+$('#'+object.id).html('New stuff!')
 }
 
 View.prototype.loadCharacters = function(characters){
+	// I am assuming an array will be passed in here. If I use a hash, I will have to change this.
 
 	$.each(characters, function(index, character){
 		currentElement = '.p' + numConvert[index + 1]
@@ -30,10 +34,9 @@ View.prototype.loadCharacters = function(characters){
 		$(currentElement).html(character.name)
 		$(currentElement).attr('id', ""+character.id)
 	})
-	// I am assuming an array will be passed in here. If I use a hash, I will have to change this.
 
 	// Also, the boss is not loaded here. It has it's own method, so I will have to write some 
-	// initial start state logic to delegate the objects being returned from the DB to the right places in the DOM.
+	// initial start-state logic to delegate the objects being returned from the DB to the right places in the DOM.
 
 	// I also need to assign ids based upon their own ids. That means I am going to have to add
 	// an ID field to the elements using javascript/jquery. I think this
@@ -63,6 +66,9 @@ View.prototype.displayItems = function(items){
 
 View.prototype.displayAttacks = function(attacks){
 	// The attack objects should get sent along with the initial request from the server.
+
+	// Note: This is easy to do if you .to_json(:include => :attacks) when you serialize the obects being passed.
+
 	// I should be able to essentially look at them and display their info in a new panel when the
 	// 'Attack' button is clicked. 
 
@@ -77,6 +83,12 @@ View.prototype.discoverAttribute = function(target, attribute){
 	// about your opponent is extremely important. This will have to update the DOM depending on which attributes
 	// need to be uncovered. It may be the bosses moveset, or the character's items. 
 	// Something to that effect...
+
+	// I am not sure if I want to make it readily available info. I may just want to
+	// make this more like 'scan' in some of the FF games and have it basically show them once
+	// for a few seconds. That might be more comlicated, but it sure would help with balance
+	// and make the game a little more about retention, like chess, than study-and-execute style like
+	// Pokemon ends up being. 
 }
 
 
