@@ -36,6 +36,12 @@ module Battle
 							@@clients << ws
 							puts "Websocket connection open with #{@@clients.length} clients."
 							@@socket_state = :on
+							ws.send({'action' => 'load',
+											 'boss' => Character.find(5).to_json,
+											 'characters' => [Character.find(1), 
+																			 	Character.find(2), 
+																			 	Character.find(3), 
+																			 	Character.find(4)]}.to_json)
 						}
 
 						ws.onclose{

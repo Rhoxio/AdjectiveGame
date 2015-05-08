@@ -46,10 +46,9 @@ View.prototype.loadBoss = function(boss){
 	$('.boss-info').html(boss.name)
 }
 
-View.prototype.textCycle = function(responseObject){
-	// This method will render to the text display area. I am planning on putting it on
-	// a one to three second timer depending on how long the text itself is.
-	$('.text-display').html(responseObject.text)
+View.prototype.displayText = function(text){
+	// This method is going to be used to change the text in the text display area.
+	$('.text-display').html(text)
 }
 
 View.prototype.displayItems = function(items){
