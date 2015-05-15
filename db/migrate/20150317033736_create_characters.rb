@@ -27,7 +27,7 @@ class CreateCharacters < ActiveRecord::Migration
       t.integer :intelligence
       t.integer :faith
 
-      # Evasion stats are influenced by constitution AND base stats.
+      # Evasion stats are influenced by base stats.
       t.integer :toughness
       t.integer :evasion
       t.integer :acuity

@@ -49,7 +49,7 @@ module Combat
 	 		 # EDIT: Maybe I should have the object and/or data set returned have some sort of attribute that explicity states that this was
 	 		 # a miss as opposed to simply taking zero damage. There is going to have to be some coupling between the front and back 
 	 		 # if I do this, but it's really no more than if I had an object with specifically named attributes anyway. 
-	 		 # If I have this return a hash, I could easily just take the hash value for 'missed?' or something like that.
+	 		 # If I have this return a hash, I could easily just check the hash for 'missed?' or something like that.
 
 	 			target.take_damage(0)
 	 			target.save
